@@ -1,0 +1,161 @@
+SQL> DELETE FROM GHC_EXPERTISE;
+
+5 rows deleted.
+
+SQL> DELETE FROM GHC_COURSE;
+
+3 rows deleted.
+
+SQL> DELETE FROM GHC_FACULTY;
+
+2 rows deleted.
+
+SQL> DELETE FROM GHC_DEPARTMENT;
+
+2 rows deleted.
+
+SQL> rem 
+SQL> rem Insert values into GHC_DEPARTMENT
+SQL> rem
+SQL> INSERT INTO GHC_DEPARTMENT
+  2  VALUES (200, 'Computer Science');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_DEPARTMENT
+  2  VALUES (300, 'Mathematics');
+
+1 row inserted.
+
+SQL> rem
+SQL> rem Insert values into GHC_FACULTY
+SQL> rem 
+SQL> INSERT INTO GHC_FACULTY
+  2  VALUES (1001, 'Gosling', 'James', '01-Jan-22', NULL, 1, 200);
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_FACULTY
+  2  VALUES (1002, 'Hajit', 'Mohammed', '01-Jan-24', NULL, 1, 200);
+
+1 row inserted.
+
+SQL> rem
+SQL> rem Insert values into GHC_COURSE
+SQL> rem 
+SQL> INSERT INTO GHC_COURSE
+  2  VALUES ('CPSC201', 'Introduction to Programming', 2);
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_COURSE
+  2  VALUES ('CPSC302', 'OOP', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_COURSE
+  2  VALUES ('CPSC304', 'Algorithrms', 5);
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_COURSE
+  2  VALUES ('CPSC402', 'OOP II', 5);
+
+1 row inserted.
+
+SQL> rem
+SQL> rem Insert values into GHC_EXPERTISE
+SQL> rem
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1001, 'CPSC201');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1001, 'CPSC302');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1001, 'CPSC304');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1002, 'CPSC201');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1002, 'CPSC302');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1002, 'CPSC304');
+
+1 row inserted.
+
+SQL> INSERT INTO GHC_EXPERTISE
+  2  VALUES (1002, 'CPSC402');
+
+1 row inserted.
+
+SQL> 
+SQL> select surname, dept_name, date_hired, course_code
+  2  from ghc_course natural join ghc_expertise natural join
+  3       ghc_faculty natural join ghc_department
+  4  order by 1,4;
+
+SURNAME                                            DEPT_NAME            DATE_HIR COURSE_
+-------------------------------------------------- -------------------- -------- -------
+Gosling                                            Computer Science     01/01/22 CPSC201
+Gosling                                            Computer Science     01/01/22 CPSC302
+Gosling                                            Computer Science     01/01/22 CPSC304
+Hajit                                              Computer Science     01/01/24 CPSC201
+Hajit                                              Computer Science     01/01/24 CPSC302
+Hajit                                              Computer Science     01/01/24 CPSC304
+Hajit                                              Computer Science     01/01/24 CPSC402
+
+7 rows selected. 
+
+SQL> 
+SQL> UPDATE GHC_COURSE
+  2      SET COURSE_TITLE = 'Object Oriented Programming'
+  3      WHERE COURSE_CODE = 'CPSC302';
+
+1 row updated.
+
+SQL> 
+SQL> DELETE FROM GHC_EXPERTISE 
+  2      WHERE COURSE_CODE = 'CPSC304';
+
+2 rows deleted.
+
+SQL> DELETE FROM GHC_COURSE 
+  2      WHERE COURSE_CODE = 'CPSC304';
+
+1 row deleted.
+
+SQL> 
+SQL> select course_code, course_title, faculty_id
+  2  from ghc_course natural join ghc_expertise 
+  3      natural join ghc_faculty
+  4  order by 1,2;
+
+COURSE_ COURSE_TITLE                                                 FACULTY_ID
+------- ------------------------------------------------------------ ----------
+CPSC201 Introduction to Programming                                        1001
+CPSC201 Introduction to Programming                                        1002
+CPSC302 Object Oriented Programming                                        1002
+CPSC302 Object Oriented Programming                                        1001
+CPSC402 OOP II                                                             1002
+
+SQL> 
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> spool off
